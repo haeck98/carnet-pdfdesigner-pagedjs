@@ -87,19 +87,32 @@ class RunningHeaders extends Handler {
 	afterPageLayout(fragment) {
 		for (let name of Object.keys(this.runningSelectors)) {
 			let set = this.runningSelectors[name];
-			if (!set.first) {
-				let selected = fragment.querySelector(set.selector);
-				if (selected) {
-					// let cssVar;
-					if (set.identifier === "running") {
-						// cssVar = selected.textContent.replace(/\\([\s\S])|(["|'])/g,"\\$1$2");
-						// this.styleSheet.insertRule(`:root { --string-${name}: "${cssVar}"; }`, this.styleSheet.cssRules.length);
-						// fragment.style.setProperty(`--string-${name}`, `"${cssVar}"`);
-						set.first = selected;
-					} else {
-						console.warn(set.value + "needs css replacement");
-					}
+			// NOTE : replaced code based on proposed fix in commit: https://github.com/pagedjs/pagedjs/pull/105/files
+			//// REPLACED START
+			// if (!set.first) {
+			// 	let selected = fragment.querySelector(set.selector);
+			// 	if (selected) {
+			// 		// let cssVar;
+			// 		if (set.identifier === "running") {
+			// 			// cssVar = selected.textContent.replace(/\\([\s\S])|(["|'])/g,"\\$1$2");
+			// 			// this.styleSheet.insertRule(`:root { --string-${name}: "${cssVar}"; }`, this.styleSheet.cssRules.length);
+			// 			// fragment.style.setProperty(`--string-${name}`, `"${cssVar}"`);
+			// 			set.first = selected;
+			// 		} else {
+			// 			console.warn(set.value + "needs css replacement");
+			// 		}
+			let selected = fragment.querySelector(set.selector);
+			if (selected) {
+				// let cssVar;
+				if (set.identifier === "running") {
+					// cssVar = selected.textContent.replace(/\\([\s\S])|(["|'])/g,"\\$1$2");
+					// this.styleSheet.insertRule(`:root { --string-${name}: "${cssVar}"; }`, this.styleSheet.cssRules.length);
+					// fragment.style.setProperty(`--string-${name}`, `"${cssVar}"`);
+					set.first = selected;
+				} else {
+					console.warn(set.value + "needs css replacement");
 				}
+			//// REPLACED END
 			}
 		}
 
